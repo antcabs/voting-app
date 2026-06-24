@@ -1,0 +1,16 @@
+services:
+  redis:
+    image: redis:alpine
+    command: redis-server --requirepass votingpassword
+    restart: unless-stopped
+
+  voting-app:
+    build: ./azure-vote
+    ports:
+      - "8080:80"
+    environment:
+      - REDIS=redis
+      - REDIS_PWD=votingpassword
+    depends_on:
+      - redis
+    restart: unless-stopped

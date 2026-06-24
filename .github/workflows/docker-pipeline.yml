@@ -21,17 +21,17 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/voting-app:${{ github.sha }} -t ${{ secrets.DOCKER_USERNAME }}/voting-app:latest ./azure-vote
+          docker build -t cabsi34/voting-app:${{ github.sha }} -t cabsi34/voting-app:latest ./azure-vote
 
       - name: Docker Scout
         uses: docker/scout-action@v1
         with:
           command: cves
-          image: ${{ secrets.DOCKER_USERNAME }}/voting-app:latest
+          image: cabsi34/voting-app:latest
           only-severities: critical,high
           exit-code: false
 
       - name: Push Docker image
         run: |
-          docker push ${{ secrets.DOCKER_USERNAME }}/voting-app:${{ github.sha }}
-          docker push ${{ secrets.DOCKER_USERNAME }}/voting-app:latest
+          docker push cabsi34/voting-app:${{ github.sha }}
+          docker push cabsi34/voting-app:latest
